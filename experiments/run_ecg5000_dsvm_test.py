@@ -24,17 +24,16 @@ from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
 
-mode = "ecd"                # "ecd", "dtw"
-stream = "test_outcontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
+mode = "dtw"                # "ecd", "dtw"
+stream = "train_incontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
 data_version = "original"   # "original", "shift20", "shift40"
 random_seed = 2025
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용
-outer_reps = 10             # 반복 실험 횟수 (병렬 처리로 실행됨)
+outer_reps = 100             # 반복 실험 횟수 (병렬 처리로 실행됨)
 ref_sample_size = 100       # 참조 집합 크기
 N_w = 20                    # 슬라이딩 윈도우 크기
-m = 20                      # max length
-
+m = 100                      # max length
 
 # ------------------------- 데이터 로딩 -------------------------
 
