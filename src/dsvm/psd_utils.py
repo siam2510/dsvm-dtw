@@ -29,7 +29,7 @@ def normalize_kernel_train(K, eps=1e-12):
     형태로 정규화하고, 대각 d = diag(K)를 반환.
     """
     K = (K + K.T) / 2.0
-    d = np.clip(np.diag(K), eps, None)
+    d = np.clip(np.diag(K), eps, None) 
     Kn = K / np.sqrt(np.outer(d, d))
     np.fill_diagonal(Kn, 1.0)
     return Kn, d

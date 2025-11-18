@@ -24,13 +24,13 @@ from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
 
-mode = "dtw"                # "ecd", "dtw"
+mode = "ecd"                # "ecd", "dtw"
 stream = "train_incontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
 data_version = "original"   # "original", "shift20", "shift40"
 random_seed = 2025
 
-window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용
-outer_reps = 100             # 반복 실험 횟수 (병렬 처리로 실행됨)
+window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
+outer_reps = 10             # 반복 실험 횟수 (병렬 처리로 실행됨)
 ref_sample_size = 100       # 참조 집합 크기
 N_w = 20                    # 슬라이딩 윈도우 크기
 m = 100                      # max length
@@ -97,7 +97,8 @@ print("X_pool  :", X_pool.shape)
 print("X_stream:", X_stream_raw.shape)
 
 
-# ------------------------- sigma^2 계산 -------------------------
+# ========================= Sigma^2 (RBF 커널 대역폭) 자동 계산 =========================
+# RBF(Radial Basis Function) 커널의 대역폭 파라미터 sigma^2를 자동으로 추정합니다.
 
 if mode == "ecd" :
     dists = compute_euclidean_distance_matrix(X_ref)
@@ -107,9 +108,6 @@ elif mode == "dtw" :
     
 else:
     raise ValueError("mode는 'ecd' 또는 'dtw'만 가능합니다.")
-
-# ========================= Sigma^2 (RBF 커널 대역폭) 자동 계산 =========================
-# RBF(Radial Basis Function) 커널의 대역폭 파라미터 sigma^2를 자동으로 추정합니다.
 
 # 대각선 원소를 제외하기 위한 마스크 생성
 # np.eye()는 항등 행렬(identity matrix)을 생성하고,
