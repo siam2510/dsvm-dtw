@@ -148,19 +148,18 @@ def single_rep_run(
         # SVM의 결정 함수(decision function) 계산
         # 참조 데이터에 가까우면 음수, 멀면 양수
         f_scores = clf.decision_function(K_test)
-        print("f_scores : ", f_scores) # test용. 삭제 예정
+        # print("f_scores : ", f_scores) # test용. 삭제 예정
         # Sigmoid 함수를 통해 점수를 확률로 변환 (0~1 범위)
         # g_scores = 1 / (1 + exp(-f_scores))
         # f_scores >> 0 이면 g_scores ≈ 1 (이상)
         # f_scores << 0 이면 g_scores ≈ 0 (정상)
         g_scores = 1 / (1 + np.exp(-f_scores))
-        print("g_scores : ", g_scores) # test용. 삭제 예정
+        # print("g_scores : ", g_scores) # test용. 삭제 예정
         # 윈도우 내 모든 샘플의 이상 점수의 평균
         # 이것이 시간 t에서의 최종 이상 탐지 점수
         p_swk = np.mean(g_scores)
         p_swk_list.append(p_swk)
-        print(f"t={t}, p_swk={p_swk:.4f}")
-        # 필요하면 여기 print 넣을 수 있음 (단, 멀티프로세싱이면 잘 안 보임)
+        # print(f"t={t}, p_swk={p_swk:.4f}")
 
     # ========================= 반환 =========================
     # 각 시간 스탬프 t=0..m-1에서의 이상 점수 리스트 반환

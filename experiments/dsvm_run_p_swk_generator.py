@@ -28,10 +28,15 @@ data_version = "original"   # "original", "shift20", "shift40"
 random_seed = 2025
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
-outer_reps = 10             # 반복 실험 횟수 (병렬 처리로 실행됨)
+outer_reps = 2000             # 반복 실험 횟수 (병렬 처리로 실행됨)
 ref_sample_size = 100       # 참조 집합 크기 (N_0)
 N_w = 20                    # 슬라이딩 윈도우 크기
 m = 100                     # max length
+
+# 청크 모드 설정
+chunk_mode = False      # 청크로 쪼개서 돌릴지 여부
+start_rep = 200             # 이번 청크 시작 rep (포함)
+end_rep = 2000              # 이번 청크 끝 rep (제외, 즉 0 ~ end_rep -1를 의미)
 
 # 논문 방식 bootstrap 사용 여부
 # - 분포를 모르는 in-control ARL0 설계용(train data)일 때 True로 두는 걸 권장
@@ -188,29 +193,46 @@ def worker(rep: int):
 # ------------------------- 메인 실행 -------------------------
 
 if __name__ == "__main__":
-    reps = list(range(outer_reps))
-    all_pswk = []
 
+    # 1) 이번에 돌릴 rep 범위 결정
+    if chunk_mode:
+        # 예: start_rep=0, end_rep=500이면 0~499
+        rep_range = range(start_rep, end_rep)   # [start_rep, end_rep)
+    else:
+        # 기존처럼 0 ~ outer_reps-1 전체
+        rep_range = range(outer_reps)
+
+    print(f"실행 rep 범위: {rep_range.start} ~ {rep_range.stop - 1}")
+    print(f"총 {len(rep_range)}개 rep 실행")
+
+    # 2) 병렬 실행
+    all_pswk = []
     with Pool(processes=10) as pool:
-        for res in tqdm(pool.imap(worker, reps), total=outer_reps):
+        for res in tqdm(pool.imap(worker, rep_range), total=len(rep_range)):
             all_pswk.append(res)
 
-    # all_pswk: list of length outer_reps, 각 원소는 길이 m 벡터
-    p_swk_mat = np.array(all_pswk).T  # shape: (m, outer_reps)
+    # all_pswk: 리스트 길이 = len(rep_range), 각 원소는 길이 m 벡터
+    p_swk_mat = np.array(all_pswk).T  # shape: (m, len(rep_range))
 
+    # 컬럼 이름도 현재 rep 번호에 맞게
     df_pswk = pd.DataFrame(
         p_swk_mat,
-        columns=[f"rep_{r}" for r in range(outer_reps)],
+        columns=[f"rep_{r}" for r in rep_range],
     )
     df_pswk.index.name = "t"
 
-    save_dir = PROJECT_ROOT / "results"
+    save_dir = PROJECT_ROOT / "results" / "tables"
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # 파일 이름 형식은 기존과 동일하게 유지
+    # 3) 파일 이름에 이번 청크의 rep 범위 반영
+    if chunk_mode:
+        rep_str = f"{rep_range.start}~{rep_range.stop - 1}"   # 예: "0~499"
+    else:
+        rep_str = f"0~{len(rep_range)-1}"
+
     save_name = (
         f"ECG5000_{stream}_p_swk_matrix_{mode}_{data_version}"
-        f"(0~{outer_reps-1})_bootstrap_seed{random_seed}_m={m}.csv"
+        f"({rep_str})_bootstrap_seed{random_seed}_m={m}.csv"
     )
     save_path = save_dir / save_name
 

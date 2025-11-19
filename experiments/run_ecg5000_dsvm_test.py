@@ -24,7 +24,7 @@ from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
 
-mode = "dtw"                # "ecd", "dtw"
+mode = "ecd"                # "ecd", "dtw"
 stream = "test_outcontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
 data_version = "original"   # "original", "shift20", "shift40"
 random_seed = 2025
