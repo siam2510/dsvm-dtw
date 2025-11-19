@@ -31,7 +31,7 @@ random_seed = 2025
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
 outer_reps = 10             # 반복 실험 횟수 (병렬 처리로 실행됨)
-ref_sample_size = 100       # 참조 집합 크기
+ref_sample_size = 100       # 참조 집합 크기 (N_0)
 N_w = 20                    # 슬라이딩 윈도우 크기
 m = 100                      # max length
 
@@ -43,7 +43,7 @@ if data_version == "original":
     test_oc_path = DATA_DIR / "test_outcontrol_original.csv"
 
 elif data_version == "shift20":
-    train_path = DATA_DIR / "rain_incontrol_shift20.csv"
+    train_path = DATA_DIR / "train_incontrol_shift20.csv"
     test_ic_path = DATA_DIR / "test_incontrol_shift20.csv"
     test_oc_path = DATA_DIR / "test_outcontrol_shift20.csv"
 
