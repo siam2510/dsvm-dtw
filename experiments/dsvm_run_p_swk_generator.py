@@ -22,8 +22,8 @@ from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
 
-mode = "ecd"                # "ecd", "dtw"
-stream = "test_outcontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
+mode = "dtw"                # "ecd", "dtw"
+stream = "test_incontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
 data_version = "original"   # "original", "shift20", "shift40"
 random_seed = 2025
 
@@ -34,9 +34,9 @@ N_w = 20                    # 슬라이딩 윈도우 크기
 m = 100                     # max length
 
 # 청크 모드 설정
-chunk_mode = False      # 청크로 쪼개서 돌릴지 여부
-start_rep = 200             # 이번 청크 시작 rep (포함)
-end_rep = 2000              # 이번 청크 끝 rep (제외, 즉 0 ~ end_rep -1를 의미)
+chunk_mode = True      # 청크로 쪼개서 돌릴지 여부
+start_rep = 1500            # 이번 청크 시작 rep (포함)
+end_rep = 1600              # 이번 청크 끝 rep (제외, 즉 0 ~ end_rep -1를 의미)
 
 # 논문 방식 bootstrap 사용 여부
 # - 분포를 모르는 in-control ARL0 설계용(train data)일 때 True로 두는 걸 권장
