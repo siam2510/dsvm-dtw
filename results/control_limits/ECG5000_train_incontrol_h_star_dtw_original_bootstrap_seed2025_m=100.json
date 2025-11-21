@@ -1,0 +1,15 @@
+{
+  "dataset": "ECG5000",
+  "stream": "train_incontrol",
+  "mode": "dtw",
+  "data_version": "original",
+  "seed": 2025,
+  "m": 100,
+  "target_ARL0": 20,
+  "h_star": 0.34469532505706013,
+  "ARL0_h_star": 20.007314524555905,
+  "SDRL_h_star": 30.255371703845185,
+  "SE_ARL0_h_star": 0.6765306781432147,
+  "rep_start": 0,
+  "rep_end": 1999
+}
