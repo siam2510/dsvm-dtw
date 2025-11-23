@@ -23,20 +23,20 @@ from dsvm.dsvm_chart import single_rep_run
 # ------------------------- 설정 -------------------------
 
 mode = "dtw"                # "ecd", "dtw"
-stream = "train_incontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
+stream = "test_outcontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
 data_version = "original"   # "original", "shift20", "shift40"
-random_seed = 1
+random_seed = 9
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
-outer_reps = 100             # 반복 실험 횟수 (병렬 처리로 실행됨)
+outer_reps = 1000             # 반복 실험 횟수 (병렬 처리로 실행됨)
 ref_sample_size = 100       # 참조 집합 크기 (N_0)
 N_w = 20                    # 슬라이딩 윈도우 크기
 m = 100                     # max length
 
 # 청크 모드 설정
 chunk_mode = False      # 청크로 쪼개서 돌릴지 여부
-start_rep = 500            # 이번 청크 시작 rep (포함)
-end_rep = 2000              # 이번 청크 끝 rep (제외, 즉 0 ~ end_rep -1를 의미)
+start_rep = 800            # 이번 청크 시작 rep (포함)
+end_rep = 1000              # 이번 청크 끝 rep (제외, 즉 0 ~ end_rep -1를 의미)
 
 # 논문 방식 bootstrap 사용 여부
 # - 분포를 모르는 in-control ARL0 설계용(train data)일 때 True로 두는 걸 권장
