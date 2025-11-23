@@ -22,10 +22,10 @@ from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
 
-mode = "dtw"                # "ecd", "dtw"
+mode = "ecd"                # "ecd", "dtw"
 stream = "test_outcontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
-data_version = "original"   # "original", "shift20", "shift40"
-random_seed = 9
+data_version = "shift20"   # "original", "shift20", "shift40"
+random_seed = 10
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
 outer_reps = 1000             # 반복 실험 횟수 (병렬 처리로 실행됨)
@@ -50,9 +50,9 @@ if data_version == "original":
     test_oc_path = DATA_DIR / "test_outcontrol_original.csv"
 
 elif data_version == "shift20":
-    train_path = DATA_DIR / "train_incontrol_shift20.csv"
-    test_ic_path = DATA_DIR / "test_incontrol_shift20.csv"
-    test_oc_path = DATA_DIR / "test_outcontrol_shift20.csv"
+    train_path = DATA_DIR / "train_incontrol_shift_20.csv"
+    test_ic_path = DATA_DIR / "test_incontrol_shift_20.csv"
+    test_oc_path = DATA_DIR / "test_outcontrol_shift_20.csv"
 
 elif data_version == "shift40":
     train_path = DATA_DIR / "train_incontrol_shift_40.csv"
