@@ -1,0 +1,33 @@
+{
+  "dataset": "ecg5000",
+  "mode": "ecd",
+  "data_version": "shift20",
+  "seed": 8,
+  "m": 100,
+  "control_limit_h_star": 0.31388984706089684,
+  "phase1": {
+    "stream": "train_incontrol",
+    "target_ARL0": 20.0,
+    "ARL0_h_star": 19.9916142557652,
+    "SDRL0_h_star": 31.235273831154707,
+    "SE_ARL0_h_star": 0.9877460864550252
+  },
+  "phase2": {
+    "test_incontrol": {
+      "ARL": 20.563694267515924,
+      "SDRL": 33.65960067291058,
+      "SE": 1.0644100325813368,
+      "N": 1000,
+      "N0": 942,
+      "N_plus": 58
+    },
+    "test_outcontrol": {
+      "ARL": 2.602,
+      "SDRL": 1.3143804624232667,
+      "SE": 0.0415643597328288,
+      "N": 1000,
+      "N0": 1000,
+      "N_plus": 0
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "dataset": "wafer",
+  "mode": "ecd",
+  "data_version": "original",
+  "seed": 1,
+  "m": 100,
+  "control_limit_h_star": 0.3083478698216251,
+  "phase1": {
+    "stream": "train_incontrol",
+    "target_ARL0": 20.0,
+    "ARL0_h_star": 19.971398305084747,
+    "SDRL0_h_star": 32.390622478516036,
+    "SE_ARL0_h_star": 1.0242814186275901
+  },
+  "phase2": {
+    "test_incontrol": {
+      "ARL": 14.663254861821903,
+      "SDRL": 24.38141949089329,
+      "SE": 0.7710081817924576,
+      "N": 1000,
+      "N0": 977,
+      "N_plus": 23
+    },
+    "test_outcontrol": {
+      "ARL": 2.122,
+      "SDRL": 0.8632010194618635,
+      "SE": 0.027296813000788213,
+      "N": 1000,
+      "N0": 1000,
+      "N_plus": 0
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "dataset": "ECG5000",
+  "dataset": "ecg5000",
   "mode": "ecd",
   "data_version": "shift40",
   "seed": 10,

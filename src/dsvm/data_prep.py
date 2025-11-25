@@ -54,6 +54,30 @@ def load_ecg5000(raw_dir: Path):
 
     return train, test
 
+def load_wafer(raw_dir: Path):
+    """
+    Load Wafer TRAIN/TEST files from raw_dir.
+
+    Parameters
+    ----------
+    raw_dir : Path
+        Directory that contains Wafer_TRAIN.txt and Wafer_TEST.txt.
+
+    Returns
+    -------
+    train : pandas.DataFrame
+        Raw training set (label + series).
+    test : pandas.DataFrame
+        Raw test set (label + series).
+    """
+    train_path = raw_dir / "Wafer_TRAIN.txt"
+    test_path = raw_dir / "Wafer_TEST.txt"
+
+    train = pd.read_csv(train_path, sep=r"\s+", engine="python", header=None)
+    test = pd.read_csv(test_path,  sep=r"\s+", engine="python", header=None)
+
+    return train, test
+
 
 def split_in_out(train: pd.DataFrame,
                  test: pd.DataFrame,

@@ -3,13 +3,13 @@
   "stream": "train_incontrol",
   "mode": "ecd",
   "data_version": "shift20",
-  "seed": 10,
+  "seed": 1,
   "m": 100,
   "target_ARL0": 20,
-  "h_star": 0.3194257298905592,
-  "ARL0_h_star": 20.015690376569037,
-  "SDRL_h_star": 31.296410557183147,
-  "SE_ARL0_h_star": 0.9896793994843809,
+  "h_star": 0.31377261399695733,
+  "ARL0_h_star": 19.955649419218584,
+  "SDRL_h_star": 32.025168644932236,
+  "SE_ARL0_h_star": 1.0127247536899406,
   "rep_start": 0,
   "rep_end": 999
 }

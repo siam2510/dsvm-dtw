@@ -1,3 +1,5 @@
+
+# wafer 데이터 테스트용. 확인 후 기존 파일과 병합할 예정 (data = ecg5000 or dtw)
 from pathlib import Path
 import sys
 
@@ -21,11 +23,11 @@ from dsvm.distances import (
 from dsvm.dsvm_chart import single_rep_run
 
 # ------------------------- 설정 -------------------------
-
+data = "ecg5000"              # "ecg5000" or "wafer"
 mode = "ecd"                # "ecd", "dtw"
 stream = "train_incontrol"  # "train_incontrol", "test_incontrol", "test_outcontrol"
-data_version = "shift20"   # "original", "shift20", "shift40"
-random_seed = 11
+shift_version = "shift10"   # "original", "shift10", "shift20", "shift40"
+random_seed = 10
 
 window = 20                 # window size for DTW, mode이 "dtw"일 때만 사용.
 outer_reps = 500             # 반복 실험 횟수 (병렬 처리로 실행됨)
@@ -44,23 +46,28 @@ use_bootstrap_for_stream = True
 
 # ------------------------- 데이터 로딩 -------------------------
 
-if data_version == "original":
-    train_path = DATA_DIR / "train_incontrol_original.csv"
-    test_ic_path = DATA_DIR / "test_incontrol_original.csv"
-    test_oc_path = DATA_DIR / "test_outcontrol_original.csv"
+if shift_version == "original":
+    train_path = DATA_DIR / f"{data}_train_incontrol_original.csv"
+    test_ic_path = DATA_DIR / f"{data}_test_incontrol_original.csv"
+    test_oc_path = DATA_DIR / f"{data}_test_outcontrol_original.csv"
+    
+elif shift_version == "shift10":
+    train_path = DATA_DIR / f"{data}_train_incontrol_shift_10.csv"
+    test_ic_path = DATA_DIR / f"{data}_test_incontrol_shift_10.csv"
+    test_oc_path = DATA_DIR / f"{data}_test_outcontrol_shift_10.csv"
+    
+elif shift_version == "shift20":
+    train_path = DATA_DIR / f"{data}_train_incontrol_shift_20.csv"
+    test_ic_path = DATA_DIR / f"{data}_test_incontrol_shift_20.csv"
+    test_oc_path = DATA_DIR / f"{data}_test_outcontrol_shift_20.csv"
 
-elif data_version == "shift20":
-    train_path = DATA_DIR / "train_incontrol_shift_20.csv"
-    test_ic_path = DATA_DIR / "test_incontrol_shift_20.csv"
-    test_oc_path = DATA_DIR / "test_outcontrol_shift_20.csv"
-
-elif data_version == "shift40":
-    train_path = DATA_DIR / "train_incontrol_shift_40.csv"
-    test_ic_path = DATA_DIR / "test_incontrol_shift_40.csv"
-    test_oc_path = DATA_DIR / "test_outcontrol_shift_40.csv"
+elif shift_version == "shift40":
+    train_path = DATA_DIR / f"{data}_train_incontrol_shift_40.csv"
+    test_ic_path = DATA_DIR / f"{data}_test_incontrol_shift_40.csv"
+    test_oc_path = DATA_DIR / f"{data}_test_outcontrol_shift_40.csv"
 
 else:
-    raise ValueError("data_version must be 'original', 'shift20', or 'shift40'.")
+    raise ValueError("shift_version must be 'original', 'shift20', or 'shift40'.")
 
 train_incontrol = pd.read_csv(train_path, header=None)
 test_incontrol = pd.read_csv(test_ic_path, header=None)
@@ -231,7 +238,7 @@ if __name__ == "__main__":
         rep_str = f"0~{len(rep_range)-1}"
 
     save_name = (
-        f"ECG5000_{stream}_p_swk_matrix_{mode}_{data_version}"
+        f"{data}_{stream}_p_swk_matrix_{mode}_{shift_version}"
         f"({rep_str})_bootstrap_seed{random_seed}_m={m}.csv"
     )
     save_path = save_dir / save_name

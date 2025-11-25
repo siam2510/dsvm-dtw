@@ -1,0 +1,15 @@
+{
+  "dataset": "wafer",
+  "stream": "train_incontrol",
+  "mode": "dtw",
+  "data_version": "original",
+  "seed": 1,
+  "m": 100,
+  "target_ARL0": 20,
+  "h_star": 0.3057121581880522,
+  "ARL0_h_star": 20.002105263157894,
+  "SDRL_h_star": 31.361744185200383,
+  "SE_ARL0_h_star": 0.9917454302077474,
+  "rep_start": 0,
+  "rep_end": 999
+}
